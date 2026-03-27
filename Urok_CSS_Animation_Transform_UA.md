@@ -9,10 +9,33 @@
 ---
 
 ## Частина 1. Туторіал (пояснення простою мовою)
+- Формат кожного підпункту: спочатку коротке пояснення, потім окремо `index.html`, потім окремо `styles.css`.
 
 ### 1. Що таке трансформація (`transform`)
 - Трансформація змінює вигляд елемента: рухає, обертає, масштабує, нахиляє.
 - Вона не "ламає" документ: елемент візуально змінюється, але логіка розмітки лишається.
+
+#### `index.html`
+```html
+<div class="demo-box">BOX</div>
+```
+
+#### `styles.css`
+```css
+.demo-box {
+  width: 100px;
+  height: 100px;
+  display: grid;
+  place-items: center;
+  background: #60a5fa;
+  color: white;
+  border-radius: 12px;
+  transition: transform 0.4s ease;
+}
+.demo-box:hover {
+  transform: translateY(-10px) rotate(8deg) scale(1.08);
+}
+```
 
 ### 2. Базові функції `transform`
 
@@ -35,25 +58,93 @@
 - `skewY(10deg)` - нахил по Y
 - `skew(15deg, 10deg)` - комбінований
 
+#### `index.html`
+```html
+<div class="row">
+  <div class="item t1">translate</div>
+  <div class="item t2">scale</div>
+  <div class="item t3">rotate</div>
+  <div class="item t4">skew</div>
+</div>
+```
+
+#### `styles.css`
+```css
+.row { display: flex; gap: 12px; flex-wrap: wrap; }
+.item {
+  width: 110px;
+  height: 70px;
+  display: grid;
+  place-items: center;
+  background: #dbeafe;
+  border: 2px solid #3b82f6;
+  border-radius: 10px;
+  transition: transform 0.35s ease;
+}
+.t1:hover { transform: translateX(18px); }
+.t2:hover { transform: scale(1.15); }
+.t3:hover { transform: rotate(12deg); }
+.t4:hover { transform: skew(-12deg, 0deg); }
+```
+
 ### 3. Комбінації `transform`
 - Можна писати кілька функцій в одному рядку.
 - Порядок важливий.
 
-```css
-/* Варіант 1 */
-transform: translateX(40px) rotate(45deg);
-
-/* Варіант 2 (інший результат) */
-transform: rotate(45deg) translateX(40px);
+#### `index.html`
+```html
+<div class="combo-wrap">
+  <div class="box a">A</div>
+  <div class="box b">B</div>
+</div>
 ```
+
+#### `styles.css`
+```css
+.combo-wrap { display: flex; gap: 26px; padding: 24px; }
+.box {
+  width: 70px;
+  height: 70px;
+  display: grid;
+  place-items: center;
+  background: #34d399;
+  border-radius: 10px;
+}
+.a { transform: translateX(40px) rotate(45deg); }
+.b { transform: rotate(45deg) translateX(40px); }
+```
+
+- Обидва квадрати мають однакові функції, але інший порядок -> різний результат.
 
 ### 4. Точка обертання `transform-origin`
 - За замовчуванням: центр (`50% 50%`).
 - Можна змінити:
 
+#### `index.html`
+```html
+<div class="origin-wrap">
+  <div class="needle center-origin">center</div>
+  <div class="needle left-origin">left bottom</div>
+</div>
+```
+
+#### `styles.css`
 ```css
-transform-origin: left top;
-transform-origin: 20px 80%;
+.origin-wrap { display: flex; gap: 26px; }
+.needle {
+  width: 12px;
+  height: 90px;
+  background: #ef4444;
+  border-radius: 10px;
+  animation: spin 2s linear infinite;
+}
+.center-origin { transform-origin: 50% 50%; }
+.left-origin { transform-origin: left bottom; }
+
+@keyframes spin {
+  from { transform: rotate(0turn); }
+  to   { transform: rotate(1turn); }
+}
 ```
 
 ---
@@ -64,16 +155,29 @@ transform-origin: 20px 80%;
 1. Описати кадри через `@keyframes`.
 2. Прив'язати їх до елемента через `animation`.
 
-#### Мінімальний приклад
+#### `index.html`
+```html
+<div class="box">Пульс</div>
+```
+
+#### `styles.css`
 ```css
+.box {
+  width: 110px;
+  height: 110px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #fb7185;
+  color: #fff;
+  font-weight: 700;
+  animation: pulse 1s infinite;
+}
+
 @keyframes pulse {
   0%   { transform: scale(1); }
   50%  { transform: scale(1.2); }
   100% { transform: scale(1); }
-}
-
-.box {
-  animation: pulse 1s infinite;
 }
 ```
 
@@ -120,25 +224,96 @@ transform-origin: 20px 80%;
 - `running` - грає
 - `paused` - пауза
 
+#### `index.html`
+```html
+<div class="demo-grid">
+  <div class="lane"><span>name</span><div class="dot name"></div></div>
+  <div class="lane"><span>duration</span><div class="dot duration"></div></div>
+  <div class="lane"><span>timing</span><div class="dot timing"></div></div>
+  <div class="lane"><span>delay</span><div class="dot delay"></div></div>
+  <div class="lane"><span>iteration</span><div class="dot iteration"></div></div>
+  <div class="lane"><span>direction</span><div class="dot direction"></div></div>
+  <div class="lane"><span>fill-mode</span><div class="dot fill"></div></div>
+  <div class="lane"><span>play-state (hover)</span><div class="dot state"></div></div>
+</div>
+```
+
+#### `styles.css`
+```css
+.demo-grid { display: grid; gap: 10px; max-width: 420px; }
+.lane {
+  position: relative;
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+  background: #eef2ff;
+  border-radius: 8px;
+  padding: 4px 10px;
+}
+.dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #2563eb;
+  animation-name: moveX;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes moveX {
+  from { transform: translateX(0); }
+  to   { transform: translateX(220px); }
+}
+@keyframes moveXAlt {
+  from { transform: translateX(0); }
+  to   { transform: translateX(220px) scale(1.25); background: #16a34a; }
+}
+
+.name { animation-name: moveXAlt; }
+.duration { animation-duration: 0.8s; }
+.timing { animation-timing-function: ease-in-out; }
+.delay { animation-delay: 1s; animation-fill-mode: backwards; }
+.iteration { animation-iteration-count: 3; }
+.direction { animation-direction: alternate; }
+.fill { animation-iteration-count: 1; animation-fill-mode: forwards; }
+.state:hover { animation-play-state: paused; }
+```
+
 ---
 
 ### 7. Комбінації параметрів `animation` (shorthand)
 
-```css
-/* name duration timing delay iteration direction fill-mode play-state */
-animation: spin 2s linear 0s infinite normal none running;
+Формат shorthand:
+- Повний: `animation: spin 2s linear 0s infinite normal none running;`
+- Короткий: `animation: spin 2s linear infinite;`
+- Кілька анімацій: `animation: floatY 2s ease-in-out infinite, colorShift 4s linear infinite;`
+
+#### `index.html`
+```html
+<div class="planet"></div>
 ```
 
-Можна писати коротше:
+#### `styles.css`
 ```css
-animation: spin 2s linear infinite;
-```
-
-Можна кілька анімацій одночасно:
-```css
-animation:
-  floatY 2s ease-in-out infinite,
-  colorShift 4s linear infinite;
+.planet {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #f59e0b;
+  animation:
+    orbit 2.5s linear infinite,
+    pulseColor 1.4s ease-in-out infinite;
+}
+@keyframes orbit {
+  from { transform: translateX(0) rotate(0turn); }
+  to   { transform: translateX(140px) rotate(1turn); }
+}
+@keyframes pulseColor {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.35); }
+}
 ```
 
 ---
@@ -157,6 +332,49 @@ animation:
 - `linear` добре для годинників, конвеєрів, фону.
 - `ease` добре для "живих" UI-ефектів.
 - `steps(...)` добре для спрайтів і "клацань".
+
+#### `index.html`
+```html
+<div class="track">
+  <div class="ball combo1"></div>
+  <div class="ball combo2"></div>
+</div>
+```
+
+#### `styles.css`
+```css
+.track {
+  display: grid;
+  gap: 12px;
+  width: 320px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  padding: 14px;
+}
+.ball {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #0ea5e9;
+  animation-name: run;
+  animation-duration: 1.8s;
+}
+.combo1 {
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+.combo2 {
+  animation-delay: 1s;
+  animation-fill-mode: backwards;
+  animation-iteration-count: infinite;
+  animation-timing-function: steps(6, end);
+}
+@keyframes run {
+  from { transform: translateX(0); }
+  to   { transform: translateX(250px); }
+}
+```
 
 ---
 
@@ -178,6 +396,7 @@ animation:
 
 ## Стартовий HTML-шаблон для всіх вправ
 
+### `index.html`
 ```html
 <!doctype html>
 <html lang="uk">
@@ -185,21 +404,24 @@ animation:
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CSS Animation Lesson</title>
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      font-family: Arial, sans-serif;
-      background: #f4f6fb;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <!-- Тут ваш елемент -->
 </body>
 </html>
+```
+
+### `styles.css`
+```css
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-family: Arial, sans-serif;
+  background: #f4f6fb;
+}
 ```
 
 ---
@@ -213,31 +435,35 @@ animation:
 - Використати `@keyframes` + `transform: translateY(...)`.
 
 #### Еталонний розв'язок
+##### `index.html`
 ```html
 <!doctype html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <style>
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #eef2ff; }
-    .ball {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: #ff7a59;
-      animation: bounce 0.9s ease-in-out infinite;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-140px); }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="ball"></div>
 </body>
 </html>
+```
+
+##### `styles.css`
+```css
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #eef2ff; }
+.ball {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #ff7a59;
+  animation: bounce 0.9s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-140px); }
+}
 ```
 
 ---
@@ -249,31 +475,35 @@ animation:
 - Додати плавний перехід через `transition`.
 
 #### Еталонний розв'язок
+##### `index.html`
 ```html
 <!doctype html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <style>
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f8fafc; }
-    .card {
-      width: 220px;
-      height: 140px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, #60a5fa, #2563eb);
-      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.25);
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
-    }
-    .card:hover {
-      transform: scale(1.08) rotate(-3deg);
-      box-shadow: 0 16px 32px rgba(37, 99, 235, 0.35);
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="card"></div>
 </body>
 </html>
+```
+
+##### `styles.css`
+```css
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f8fafc; }
+.card {
+  width: 220px;
+  height: 140px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #60a5fa, #2563eb);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.25);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.card:hover {
+  transform: scale(1.08) rotate(-3deg);
+  box-shadow: 0 16px 32px rgba(37, 99, 235, 0.35);
+}
 ```
 
 ---
@@ -285,52 +515,13 @@ animation:
 - Спробувати змінити `transform-origin`.
 
 #### Еталонний розв'язок
+##### `index.html`
 ```html
 <!doctype html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <style>
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #eaf7ff; }
-    .windmill {
-      position: relative;
-      width: 220px;
-      height: 220px;
-    }
-    .hub {
-      position: absolute;
-      inset: 0;
-      margin: auto;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: #1f2937;
-      z-index: 2;
-    }
-    .blade-wrap {
-      position: absolute;
-      inset: 0;
-      animation: spin 2.2s linear infinite;
-    }
-    .blade {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 18px;
-      height: 90px;
-      background: #38bdf8;
-      border-radius: 10px;
-      transform-origin: 50% 100%;
-    }
-    .b1 { transform: translate(-50%, -100%) rotate(0deg); }
-    .b2 { transform: translate(-50%, -100%) rotate(120deg); }
-    .b3 { transform: translate(-50%, -100%) rotate(240deg); }
-
-    @keyframes spin {
-      from { transform: rotate(0turn); }
-      to { transform: rotate(1turn); }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="windmill">
@@ -345,6 +536,49 @@ animation:
 </html>
 ```
 
+##### `styles.css`
+```css
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #eaf7ff; }
+.windmill {
+  position: relative;
+  width: 220px;
+  height: 220px;
+}
+.hub {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #1f2937;
+  z-index: 2;
+}
+.blade-wrap {
+  position: absolute;
+  inset: 0;
+  animation: spin 2.2s linear infinite;
+}
+.blade {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 90px;
+  background: #38bdf8;
+  border-radius: 10px;
+  transform-origin: 50% 100%;
+}
+.b1 { transform: translate(-50%, -100%) rotate(0deg); }
+.b2 { transform: translate(-50%, -100%) rotate(120deg); }
+.b3 { transform: translate(-50%, -100%) rotate(240deg); }
+
+@keyframes spin {
+  from { transform: rotate(0turn); }
+  to { transform: rotate(1turn); }
+}
+```
+
 ---
 
 ### Задача 4. "Анімація кроками `steps(...)`"
@@ -354,48 +588,52 @@ animation:
 - Використати `steps(4, end)`.
 
 #### Еталонний розв'язок
+##### `index.html`
 ```html
 <!doctype html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <style>
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f8fafc; }
-    .bar {
-      width: 320px;
-      height: 24px;
-      border-radius: 999px;
-      background:
-        linear-gradient(
-          90deg,
-          #22c55e 0 25%,
-          #e5e7eb 25% 50%,
-          #e5e7eb 50% 75%,
-          #e5e7eb 75% 100%
-        );
-      animation: fillSteps 2s steps(4, end) infinite;
-    }
-
-    @keyframes fillSteps {
-      0% {
-        background: linear-gradient(90deg, #22c55e 0 25%, #e5e7eb 25% 100%);
-      }
-      25% {
-        background: linear-gradient(90deg, #22c55e 0 50%, #e5e7eb 50% 100%);
-      }
-      50% {
-        background: linear-gradient(90deg, #22c55e 0 75%, #e5e7eb 75% 100%);
-      }
-      75%, 100% {
-        background: linear-gradient(90deg, #22c55e 0 100%, #e5e7eb 100% 100%);
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="bar"></div>
 </body>
 </html>
+```
+
+##### `styles.css`
+```css
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f8fafc; }
+.bar {
+  width: 320px;
+  height: 24px;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      #22c55e 0 25%,
+      #e5e7eb 25% 50%,
+      #e5e7eb 50% 75%,
+      #e5e7eb 75% 100%
+    );
+  animation: fillSteps 2s steps(4, end) infinite;
+}
+
+@keyframes fillSteps {
+  0% {
+    background: linear-gradient(90deg, #22c55e 0 25%, #e5e7eb 25% 100%);
+  }
+  25% {
+    background: linear-gradient(90deg, #22c55e 0 50%, #e5e7eb 50% 100%);
+  }
+  50% {
+    background: linear-gradient(90deg, #22c55e 0 75%, #e5e7eb 75% 100%);
+  }
+  75%, 100% {
+    background: linear-gradient(90deg, #22c55e 0 100%, #e5e7eb 100% 100%);
+  }
+}
 ```
 
 ---
@@ -418,6 +656,7 @@ animation:
 - Отже: `minute hand -> 2.5s` за 1 оберт.
 
 #### Еталонний розв'язок
+##### `index.html`
 ```html
 <!doctype html>
 <html lang="uk">
@@ -425,123 +664,7 @@ animation:
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Analog Clock CSS Only</title>
-  <style>
-    :root {
-      --clock-size: 320px;
-      --ring: #111827;
-      --face: #f8fafc;
-      --mark: #1f2937;
-      --hour-color: #ef4444;
-      --minute-color: #0f172a;
-    }
-
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: radial-gradient(circle at top, #dbeafe, #bfdbfe 45%, #93c5fd);
-      font-family: Arial, sans-serif;
-    }
-
-    .clock {
-      position: relative;
-      width: var(--clock-size);
-      aspect-ratio: 1;
-      border: 10px solid var(--ring);
-      border-radius: 50%;
-      background: var(--face);
-      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.25);
-    }
-
-    .center {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #111827;
-      transform: translate(-50%, -50%);
-      z-index: 10;
-    }
-
-    .mark {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 6px;
-      height: 16px;
-      background: var(--mark);
-      border-radius: 3px;
-      transform-origin: 50% calc(100% + (var(--clock-size) / 2 - 20px));
-    }
-    .m1  { transform: translate(-50%, -50%) rotate(0deg); }
-    .m2  { transform: translate(-50%, -50%) rotate(30deg); }
-    .m3  { transform: translate(-50%, -50%) rotate(60deg); }
-    .m4  { transform: translate(-50%, -50%) rotate(90deg); }
-    .m5  { transform: translate(-50%, -50%) rotate(120deg); }
-    .m6  { transform: translate(-50%, -50%) rotate(150deg); }
-    .m7  { transform: translate(-50%, -50%) rotate(180deg); }
-    .m8  { transform: translate(-50%, -50%) rotate(210deg); }
-    .m9  { transform: translate(-50%, -50%) rotate(240deg); }
-    .m10 { transform: translate(-50%, -50%) rotate(270deg); }
-    .m11 { transform: translate(-50%, -50%) rotate(300deg); }
-    .m12 { transform: translate(-50%, -50%) rotate(330deg); }
-
-    .hand {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform-origin: 50% 100%;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-    }
-
-    .hour {
-      width: 8px;
-      height: 90px;
-      background: var(--hour-color);
-      border-radius: 6px;
-      transform: translate(-50%, -100%) rotate(0deg);
-      animation-name: spinHour;
-      animation-duration: 30s; /* 12h симульованого часу */
-    }
-
-    .minute {
-      width: 5px;
-      height: 130px;
-      background: var(--minute-color);
-      border-radius: 6px;
-      transform: translate(-50%, -100%) rotate(0deg);
-      animation-name: spinMinute;
-      animation-duration: 2.5s; /* 1h симульованого часу */
-    }
-
-    @keyframes spinHour {
-      from { transform: translate(-50%, -100%) rotate(0turn); }
-      to   { transform: translate(-50%, -100%) rotate(1turn); }
-    }
-
-    @keyframes spinMinute {
-      from { transform: translate(-50%, -100%) rotate(0turn); }
-      to   { transform: translate(-50%, -100%) rotate(1turn); }
-    }
-
-    .note {
-      position: fixed;
-      left: 50%;
-      bottom: 20px;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-size: 14px;
-      color: #0f172a;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="clock">
@@ -559,6 +682,125 @@ animation:
   </div>
 </body>
 </html>
+```
+
+##### `styles.css`
+```css
+:root {
+  --clock-size: 320px;
+  --ring: #111827;
+  --face: #f8fafc;
+  --mark: #1f2937;
+  --hour-color: #ef4444;
+  --minute-color: #0f172a;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at top, #dbeafe, #bfdbfe 45%, #93c5fd);
+  font-family: Arial, sans-serif;
+}
+
+.clock {
+  position: relative;
+  width: var(--clock-size);
+  aspect-ratio: 1;
+  border: 10px solid var(--ring);
+  border-radius: 50%;
+  background: var(--face);
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.25);
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #111827;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.mark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 16px;
+  background: var(--mark);
+  border-radius: 3px;
+  transform-origin: 50% calc(100% + (var(--clock-size) / 2 - 20px));
+}
+.m1  { transform: translate(-50%, -50%) rotate(0deg); }
+.m2  { transform: translate(-50%, -50%) rotate(30deg); }
+.m3  { transform: translate(-50%, -50%) rotate(60deg); }
+.m4  { transform: translate(-50%, -50%) rotate(90deg); }
+.m5  { transform: translate(-50%, -50%) rotate(120deg); }
+.m6  { transform: translate(-50%, -50%) rotate(150deg); }
+.m7  { transform: translate(-50%, -50%) rotate(180deg); }
+.m8  { transform: translate(-50%, -50%) rotate(210deg); }
+.m9  { transform: translate(-50%, -50%) rotate(240deg); }
+.m10 { transform: translate(-50%, -50%) rotate(270deg); }
+.m11 { transform: translate(-50%, -50%) rotate(300deg); }
+.m12 { transform: translate(-50%, -50%) rotate(330deg); }
+
+.hand {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: 50% 100%;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.hour {
+  width: 8px;
+  height: 90px;
+  background: var(--hour-color);
+  border-radius: 6px;
+  transform: translate(-50%, -100%) rotate(0deg);
+  animation-name: spinHour;
+  animation-duration: 30s; /* 12h симульованого часу */
+}
+
+.minute {
+  width: 5px;
+  height: 130px;
+  background: var(--minute-color);
+  border-radius: 6px;
+  transform: translate(-50%, -100%) rotate(0deg);
+  animation-name: spinMinute;
+  animation-duration: 2.5s; /* 1h симульованого часу */
+}
+
+@keyframes spinHour {
+  from { transform: translate(-50%, -100%) rotate(0turn); }
+  to   { transform: translate(-50%, -100%) rotate(1turn); }
+}
+
+@keyframes spinMinute {
+  from { transform: translate(-50%, -100%) rotate(0turn); }
+  to   { transform: translate(-50%, -100%) rotate(1turn); }
+}
+
+.note {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #0f172a;
+}
 ```
 
 ---
@@ -591,6 +833,7 @@ animation:
 - `@keyframes` описує кроки анімації.
 - `animation` керує часом, швидкістю, напрямком і повторами.
 - Навіть без JS можна створювати живі й цікаві інтерфейси.
+
 
 
 
