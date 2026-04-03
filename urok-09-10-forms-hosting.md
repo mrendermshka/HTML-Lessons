@@ -406,7 +406,7 @@ body {
 5. Натисни **Create repository**.
 
 **Скріншот 1:** створення нового репозиторію  
-_Додати скріншот екрана GitHub з кнопкою “New repository”._
+![Створення нового репозиторію](images/github-pages/step-01-new-repo.png)
 
 ---
 
@@ -418,7 +418,7 @@ _Додати скріншот екрана GitHub з кнопкою “New repo
 5. Натисни **Commit changes**.
 
 **Скріншот 2:** завантаження файлів  
-_Додати скріншот сторінки Upload files._
+![Завантаження файлів у репозиторій](images/github-pages/step-02-upload-files.png)
 
 ---
 
@@ -432,7 +432,7 @@ _Додати скріншот сторінки Upload files._
 5. Натисни **Save**.
 
 **Скріншот 3:** налаштування GitHub Pages  
-_Додати скріншот розділу Pages у Settings._
+![Розділ Pages у Settings](images/github-pages/step-03-pages-settings-before.png)
 
 ---
 
@@ -445,8 +445,8 @@ _Додати скріншот розділу Pages у Settings._
 https://your-name.github.io/repository-name/
 ```
 
-**Скріншот 4:** готове посилання на сайт  
-_Додати скріншот блоку, де з'являється URL сайту._
+**Скріншот 4:** GitHub Pages увімкнено  
+![GitHub Pages увімкнено для репозиторію](images/github-pages/step-04-pages-enabled.png)
 
 ---
 
