@@ -1,9 +1,9 @@
-# Урок 7-8. Збираємо повноцінну вебсторінку (HTML + CSS)
+# Урок 7-8. Зображення, відео, кольори та CSS-ефекти (HTML + CSS)
 
 ## Для кого цей матеріал
 - Вік: 10–13 років
 - Рівень: початковий
-- Формат: 40% коротке нагадування, 60% практика
+- Формат: 50% пояснення, 50% практика
 - Технології: `HTML` + `CSS`
 
 ---
@@ -11,221 +11,232 @@
 ## Мета уроку
 
 На цьому уроці учні:
-- використають уже знайомі теги структури сторінки;
-- застосують уже відомі `Flexbox` або `Grid` для розміщення блоків;
-- навчаться збирати не окремі елементи, а цілу сторінку;
-- створять мінісайт з меню, інформаційними блоками та картками.
+- навчаться додавати зображення на сторінку;
+- дізнаються, як вставляти відео;
+- попрацюють із кольорами тексту, фону та блоків;
+- познайомляться з `:first-child`, `:nth-child()`, `::before`, `::after`;
+- навчаться робити сайт цікавішим і більш візуальним.
 
 ---
 
-## Частина 1. Коротке нагадування
+## Частина 1. Теорія
 
-На попередніх уроках ми вже знайомилися з:
-- основною структурою HTML-сторінки;
-- тегами `header`, `main`, `section`, `footer`;
-- базовим оформленням через `CSS`;
-- розміщенням елементів через `Flexbox` або `Grid`.
+### 1. Зображення на сайті
 
-Тому на цьому уроці ми не вчимо це заново, а **використовуємо все разом**, щоб зібрати справжню вебсторінку.
+Щоб додати картинку на сторінку, використовують тег `<img>`.
 
-Головна ідея уроку:
-> не окремі теги заради тегів, а готова сторінка, яка виглядає як маленький сайт.
+Він потрібен, коли ми хочемо показати:
+- фото;
+- ілюстрацію;
+- аватар;
+- картинку гри, тварини або героя.
 
----
+#### Найважливіші частини тега `<img>`
+- `src` — шлях до картинки;
+- `alt` — текстовий опис картинки;
+- `width` — ширина картинки.
 
-## Частина 2. Яку сторінку будемо збирати
-
-На уроці учень створює одну завершену сторінку.
-
-У ній мають бути:
-- шапка сайту;
-- меню;
-- головний інформаційний блок;
-- секція з картками;
-- нижня частина сторінки.
-
-### Варіанти теми сторінки
-- Моя улюблена гра
-- Моє хобі
-- Моя тварина
-- Моя команда супергероїв
-- Мій мінісайт про Minecraft / Roblox / Brawl Stars
-
----
-
-## Частина 3. План сторінки
-
-Перед тим як писати код, корисно уявити сторінку як набір блоків.
-
-### Схема сторінки
-- `header` — назва сайту + меню
-- `main`
-  - перша `section` — короткий опис
-  - друга `section` — картки
-- `footer` — підпис або контакти
-
----
-
-## Частина 4. Збираємо основу сторінки
-
-### `index.html`
+#### `index.html`
 ```html
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мій мінісайт</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header class="site-header">
-        <h1>Мій мінісайт</h1>
-        <nav class="menu">
-            <a href="#about">Про мене</a>
-            <a href="#cards">Цікаве</a>
-            <a href="#footer">Контакти</a>
-        </nav>
-    </header>
-
-    <main class="container">
-        <section id="about" class="hero">
-            <h2>Ласкаво прошу!</h2>
-            <p>Це моя навчальна вебсторінка, яку я створив за допомогою HTML та CSS.</p>
-        </section>
-
-        <section id="cards" class="cards-section">
-            <h2>Мої улюблені речі</h2>
-            <div class="cards">
-                <div class="card">
-                    <h3>Картка 1</h3>
-                    <p>Тут короткий опис.</p>
-                </div>
-                <div class="card">
-                    <h3>Картка 2</h3>
-                    <p>Тут короткий опис.</p>
-                </div>
-                <div class="card">
-                    <h3>Картка 3</h3>
-                    <p>Тут короткий опис.</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer id="footer" class="site-footer">
-        <p>Створено учнем на курсі HTML + CSS</p>
-    </footer>
-</body>
-</html>
+<img src="cat.jpg" alt="Милий кіт" width="250">
 ```
 
-### `style.css`
+### Що означає `alt`
+
+`alt` потрібен для пояснення, що саме зображено на картинці.
+
+Наприклад:
+```html
+<img src="dog.jpg" alt="Собака біжить по траві">
+```
+
+Якщо картинка не відкриється, браузер покаже текст із `alt`.
+
+---
+
+### 2. Локальні та зовнішні зображення
+
+Картинку можна підключити двома способами.
+
+#### Локальна картинка
+Тобто файл лежить у тебе в папці проєкту.
+
+```html
+<img src="images/minecraft.png" alt="Гра Minecraft">
+```
+
+#### Зовнішня картинка
+Тобто картинка береться з інтернету через посилання.
+
+```html
+<img src="https://example.com/picture.jpg" alt="Картинка з інтернету">
+```
+
+Для навчальних проєктів краще частіше використовувати **локальні картинки**, бо вони зручніші для маленького сайту.
+
+---
+
+### 3. Відео на сайті
+
+На сайт можна додавати не тільки картинки, а й відео.
+
+Для цього існує тег `<video>`.
+
+#### Простий приклад
+```html
+<video controls width="320">
+    <source src="video.mp4" type="video/mp4">
+</video>
+```
+
+### Що означає `controls`
+
+`controls` додає кнопки керування:
+- play;
+- pause;
+- перемотування;
+- звук.
+
+---
+
+### 4. Кольори тексту і фону
+
+За допомогою CSS можна змінювати:
+- колір тексту;
+- колір фону;
+- колір окремих блоків;
+- колір кнопок;
+- колір заголовків.
+
+#### `style.css`
 ```css
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
     background-color: #f5f7fb;
     color: #1f2937;
 }
 
-.site-header {
-    background-color: #4f46e5;
-    color: white;
-    padding: 20px;
-}
-
-.menu {
-    display: flex;
-    gap: 15px;
-    margin-top: 10px;
-}
-
-.menu a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.container {
-    padding: 20px;
-}
-
-.hero {
-    background-color: white;
-    padding: 20px;
-    border-radius: 14px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-}
-
-.cards {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+h1 {
+    color: #4f46e5;
 }
 
 .card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 14px;
-    width: 220px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-}
-
-.site-footer {
-    background-color: #312e81;
-    color: white;
-    padding: 15px 20px;
-    margin-top: 20px;
+    background-color: #ffffff;
 }
 ```
 
----
-
-## Частина 5. Що тут вже використовується
-
-На цій сторінці ми вже застосували знайомі речі:
-- структуру HTML-документа;
-- `header`, `main`, `section`, `footer`;
-- меню;
-- блоки з контентом;
-- картки;
-- `Flexbox` для розташування елементів.
-
-Тобто це вже не одна маленька вправа, а **майже готовий сайт**.
+Головне правило:
+текст має бути **добре видно на фоні**.
 
 ---
 
-## Частина 6. Практика
+### 5. Псевдоклас `:first-child`
+
+`:first-child` дозволяє оформити **перший елемент** у групі.
+
+#### `index.html`
+```html
+<div class="cards">
+    <div class="card">Картка 1</div>
+    <div class="card">Картка 2</div>
+    <div class="card">Картка 3</div>
+</div>
+```
+
+#### `style.css`
+```css
+.card:first-child {
+    border: 3px solid #4f46e5;
+}
+```
+
+Тепер перша картка виглядатиме особливо.
+
+---
+
+### 6. Псевдоклас `:nth-child()`
+
+`:nth-child()` дозволяє вибрати певний елемент за номером.
+
+#### Приклади
+```css
+.card:nth-child(2) {
+    background-color: #dbeafe;
+}
+
+.card:nth-child(3) {
+    background-color: #dcfce7;
+}
+```
+
+Можна ще писати:
+```css
+.card:nth-child(even) {
+    border-radius: 20px;
+}
+```
+
+Це означає: вибрати **кожну другу** картку.
+
+---
+
+### 7. Псевдоелемент `::before`
+
+`::before` додає щось **перед текстом або елементом**.
+
+#### `style.css`
+```css
+.card-title::before {
+    content: "⭐ ";
+}
+```
+
+Тепер перед заголовком буде зірочка.
+
+---
+
+### 8. Псевдоелемент `::after`
+
+`::after` додає щось **після тексту або елемента**.
+
+#### `style.css`
+```css
+.card-title::after {
+    content: " new";
+    color: red;
+}
+```
+
+Тепер після заголовка буде слово `new`.
+
+---
+
+## Частина 2. Практика
 
 ### План на 60 хв
-1. `10 хв` — коротке нагадування, з яких блоків складається сайт
-2. `15 хв` — збірка HTML-структури сторінки
-3. `15 хв` — оформлення шапки, меню і контенту
-4. `15 хв` — додавання карток і оформлення
+1. `10 хв` — повторення, як працюють картинки і кольори
+2. `15 хв` — вставка зображень і відео
+3. `15 хв` — робота з кольорами та оформленням блоків
+4. `15 хв` — ефекти через `:first-child`, `:nth-child()`, `::before`, `::after`
 5. `5 хв` — підсумок уроку
 
 ---
 
 ### Що учні мають вміти після уроку
-- зібрати сторінку з кількох блоків;
-- використати вже знайомі теги структури;
-- зробити меню;
-- розмістити картки через `Flexbox` або `Grid`;
-- оформити сторінку так, щоб вона виглядала як мінісайт.
+- додавати картинки на сторінку;
+- вставляти просте відео;
+- змінювати кольори фону і тексту;
+- виділяти окремі елементи через `:first-child` і `:nth-child()`;
+- додавати маленькі декоративні елементи через `::before` і `::after`.
 
 ---
 
-## Практика 1. Збираємо базовий макет сторінки
+## Практика 1. Додаємо картинки на сайт
 
 ### Завдання
-Створи сторінку, у якій буде:
-- назва сайту;
-- меню;
-- блок з описом;
-- блок з картками;
-- футер.
+Створи сторінку з:
+- заголовком;
+- коротким текстом;
+- двома картинками.
 
 ### Готовий приклад результату
 
@@ -235,47 +246,15 @@ body {
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Моє хобі</title>
+    <title>Моя улюблена гра</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="site-header">
-        <h1>Моє хобі</h1>
-        <nav class="menu">
-            <a href="#about">Про мене</a>
-            <a href="#cards">Моє хобі</a>
-            <a href="#footer">Контакти</a>
-        </nav>
-    </header>
+    <h1>Моя улюблена гра</h1>
+    <p>Minecraft — це гра, у якій можна будувати власні світи.</p>
 
-    <main class="container">
-        <section id="about" class="hero">
-            <h2>Привіт!</h2>
-            <p>Я люблю створювати сайти та дізнаватися щось нове.</p>
-        </section>
-
-        <section id="cards" class="cards-section">
-            <h2>Що мені подобається</h2>
-            <div class="cards">
-                <div class="card">
-                    <h3>Ігри</h3>
-                    <p>Я люблю цікаві пригоди та будівництво.</p>
-                </div>
-                <div class="card">
-                    <h3>Малювання</h3>
-                    <p>Мені подобається придумувати власних героїв.</p>
-                </div>
-                <div class="card">
-                    <h3>Технології</h3>
-                    <p>Я хочу навчитися робити свої сайти.</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer id="footer" class="site-footer">
-        <p>Мій навчальний сайт</p>
-    </footer>
+    <img src="images/minecraft-1.jpg" alt="Світ Minecraft" width="250">
+    <img src="images/minecraft-2.jpg" alt="Будинок у Minecraft" width="250">
 </body>
 </html>
 ```
@@ -284,129 +263,136 @@ body {
 ```css
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
     background-color: #f5f7fb;
-}
-
-.site-header {
-    background-color: #4f46e5;
-    color: white;
     padding: 20px;
 }
 
-.menu {
-    display: flex;
-    gap: 15px;
+h1 {
+    color: #16a34a;
 }
 
-.menu a {
-    color: white;
-    text-decoration: none;
-}
-
-.container {
-    padding: 20px;
-}
-
-.hero,
-.card {
-    background-color: white;
-    border-radius: 14px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
-
-.hero {
-    margin-bottom: 20px;
-}
-
-.cards {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.card {
-    width: 220px;
-}
-
-.site-footer {
-    background-color: #312e81;
-    color: white;
-    padding: 15px 20px;
-    margin-top: 20px;
+img {
+    border-radius: 12px;
+    margin-right: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 ```
 
 ---
 
-## Практика 2. Робимо меню
+## Практика 2. Додаємо відео
 
 ### Завдання
-У шапці сторінки створити меню мінімум із 3 пунктів.
+Додай на сторінку коротке відео або місце під відео.
 
 ### Готовий приклад результату
 
 #### `index.html`
 ```html
-<header class="site-header">
-    <h1>Моя сторінка</h1>
-    <nav class="menu">
-        <a href="#about">Про мене</a>
-        <a href="#cards">Мої улюблені речі</a>
-        <a href="#footer">Контакти</a>
-    </nav>
-</header>
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Моє відео</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Моє улюблене відео</h1>
+
+    <video controls width="400">
+        <source src="video/game.mp4" type="video/mp4">
+        Твій браузер не підтримує відео.
+    </video>
+</body>
+</html>
 ```
 
 #### `style.css`
 ```css
-.site-header {
-    background-color: #4f46e5;
-    color: white;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #eef2ff;
     padding: 20px;
 }
 
-.menu {
-    display: flex;
-    gap: 15px;
-    margin-top: 10px;
-}
-
-.menu a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+video {
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
 }
 ```
 
-### Додаткове завдання
-Спробуй змінити відстань між пунктами меню.
-
 ---
 
-## Практика 3. Додаємо 3 картки
+## Практика 3. Працюємо з кольорами
 
 ### Завдання
-Створи 3 картки на тему своєї сторінки.
+Зроби сторінку яскравішою:
+- зміни фон;
+- зміни колір заголовка;
+- зроби кольорові картки.
 
 ### Готовий приклад результату
 
 #### `index.html`
 ```html
 <div class="cards">
-    <div class="card">
-        <h3>Minecraft</h3>
-        <p>Мені подобається будувати великі світи.</p>
-    </div>
-    <div class="card">
-        <h3>Roblox</h3>
-        <p>Там багато різних режимів і карт.</p>
-    </div>
-    <div class="card">
-        <h3>Brawl Stars</h3>
-        <p>Мені подобається швидкий темп гри.</p>
-    </div>
+    <div class="card">Червона картка</div>
+    <div class="card">Синя картка</div>
+    <div class="card">Зелена картка</div>
+</div>
+```
+
+#### `style.css`
+```css
+body {
+    background-color: #f8fafc;
+    padding: 20px;
+}
+
+.cards {
+    display: flex;
+    gap: 15px;
+}
+
+.card {
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.card:nth-child(1) {
+    background-color: #ef4444;
+}
+
+.card:nth-child(2) {
+    background-color: #3b82f6;
+}
+
+.card:nth-child(3) {
+    background-color: #22c55e;
+}
+```
+
+---
+
+## Практика 4. Виділяємо картки через `:first-child` і `:nth-child()`
+
+### Завдання
+Зроби так, щоб:
+- перша картка мала рамку;
+- друга картка мала інший фон;
+- кожна друга картка була трохи іншою.
+
+### Готовий приклад результату
+
+#### `index.html`
+```html
+<div class="cards">
+    <div class="card">Картка 1</div>
+    <div class="card">Картка 2</div>
+    <div class="card">Картка 3</div>
+    <div class="card">Картка 4</div>
 </div>
 ```
 
@@ -414,48 +400,66 @@ body {
 ```css
 .cards {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
 .card {
     background-color: white;
     padding: 20px;
-    border-radius: 14px;
-    width: 220px;
+    border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.card:first-child {
+    border: 3px solid #4f46e5;
+}
+
+.card:nth-child(2) {
+    background-color: #dbeafe;
+}
+
+.card:nth-child(even) {
+    transform: translateY(-5px);
 }
 ```
 
 ---
 
-## Практика 4. Додаємо індивідуальність
+## Практика 5. Додаємо декор через `::before` і `::after`
 
 ### Завдання
-Зміни сторінку так, щоб вона стала більш "твоєю".
+Зроби заголовки карток цікавішими:
+- перед текстом додай значок;
+- після тексту додай маленький напис.
 
 ### Готовий приклад результату
 
 #### `index.html`
 ```html
-<section class="hero">
-    <h2>Ласкаво прошу у світ моїх улюблених ігор!</h2>
-    <p>Тут я зібрав коротку інформацію про те, що мені подобається найбільше.</p>
-</section>
+<div class="card">
+    <h3 class="card-title">Minecraft</h3>
+    <p>Моя улюблена гра.</p>
+</div>
 ```
 
 #### `style.css`
 ```css
-body {
-    background: linear-gradient(to bottom, #eef2ff, #f8fafc);
-}
-
-.hero {
+.card {
     background-color: white;
     padding: 20px;
-    border-radius: 14px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border-radius: 12px;
+    width: 220px;
+}
+
+.card-title::before {
+    content: "⭐ ";
+}
+
+.card-title::after {
+    content: " top";
+    color: #ef4444;
+    font-size: 14px;
 }
 ```
 
@@ -463,15 +467,15 @@ body {
 
 ## Мініпроєкт уроку
 
-### Мініпроєкт: "Моя готова сторінка"
+### Мініпроєкт: "Яскрава сторінка про мою улюблену тему"
 
-Учень має зробити повну сторінку, де є:
-- шапка;
-- меню;
-- короткий опис;
-- 3 картки;
-- футер;
-- охайне оформлення.
+Учень має створити сторінку, де є:
+- заголовок;
+- текст;
+- 2–3 картинки;
+- відео або місце під відео;
+- кольорові блоки;
+- хоча б один ефект через `:first-child`, `:nth-child()`, `::before` або `::after`.
 
 ### Готовий приклад результату
 
@@ -481,48 +485,41 @@ body {
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Моя улюблена гра</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="site-header">
-        <h1>Моя улюблена гра</h1>
-        <nav class="menu">
-            <a href="#about">Про гру</a>
-            <a href="#cards">Мої причини</a>
-            <a href="#footer">Контакти</a>
-        </nav>
+    <header>
+        <h1>Моя улюблена гра — Minecraft</h1>
+        <p>Тут я зібрав картинки, відео і цікаві факти.</p>
     </header>
 
-    <main class="container">
-        <section id="about" class="hero">
-            <h2>Чому мені подобається Minecraft</h2>
-            <p>Minecraft дає можливість будувати, досліджувати та вигадувати власні світи.</p>
-        </section>
+    <section class="gallery">
+        <img src="images/minecraft-1.jpg" alt="Minecraft світ" width="220">
+        <img src="images/minecraft-2.jpg" alt="Minecraft будівля" width="220">
+        <img src="images/minecraft-3.jpg" alt="Minecraft герой" width="220">
+    </section>
 
-        <section id="cards">
-            <h2>Що мені найбільше подобається</h2>
-            <div class="cards">
-                <div class="card">
-                    <h3>Будівництво</h3>
-                    <p>Можна створювати будинки, міста і замки.</p>
-                </div>
-                <div class="card">
-                    <h3>Пригоди</h3>
-                    <p>У грі цікаво шукати ресурси та досліджувати світ.</p>
-                </div>
-                <div class="card">
-                    <h3>Фантазія</h3>
-                    <p>Можна придумати власний сюжет і створити щось особливе.</p>
-                </div>
-            </div>
-        </section>
-    </main>
+    <section class="cards">
+        <div class="card">
+            <h3 class="card-title">Будівництво</h3>
+            <p>У грі можна створювати власні будинки і міста.</p>
+        </div>
+        <div class="card">
+            <h3 class="card-title">Пригоди</h3>
+            <p>У світі гри завжди можна знайти щось цікаве.</p>
+        </div>
+        <div class="card">
+            <h3 class="card-title">Фантазія</h3>
+            <p>Кожен може вигадати власну історію.</p>
+        </div>
+    </section>
 
-    <footer id="footer" class="site-footer">
-        <p>Сторінку створив учень курсу HTML + CSS</p>
-    </footer>
+    <section class="video-box">
+        <video controls width="420">
+            <source src="video/minecraft.mp4" type="video/mp4">
+        </video>
+    </section>
 </body>
 </html>
 ```
@@ -531,60 +528,67 @@ body {
 ```css
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #f4f7fb;
+    background: linear-gradient(to bottom, #ecfccb, #eff6ff);
+    padding: 20px;
     color: #1f2937;
 }
 
-.site-header {
-    background-color: #16a34a;
-    color: white;
-    padding: 20px;
+h1 {
+    color: #166534;
 }
 
-.menu {
+.gallery {
     display: flex;
-    gap: 15px;
-    margin-top: 10px;
+    gap: 12px;
+    margin: 20px 0;
+    flex-wrap: wrap;
 }
 
-.menu a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.container {
-    padding: 20px;
-}
-
-.hero,
-.card {
-    background-color: white;
-    border-radius: 14px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
-
-.hero {
-    margin-bottom: 20px;
+.gallery img {
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .cards {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     flex-wrap: wrap;
+    margin-top: 20px;
 }
 
 .card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 14px;
     width: 220px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-.site-footer {
-    background-color: #166534;
-    color: white;
-    padding: 15px 20px;
+.card:first-child {
+    border: 3px solid #16a34a;
+}
+
+.card:nth-child(2) {
+    background-color: #dbeafe;
+}
+
+.card-title::before {
+    content: "🎮 ";
+}
+
+.card-title::after {
+    content: " wow";
+    color: #ef4444;
+    font-size: 13px;
+}
+
+.video-box {
     margin-top: 20px;
+}
+
+video {
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
 }
 ```
 
@@ -592,47 +596,95 @@ body {
 
 ## Типові помилки
 
-- сторінка зібрана без логіки;
-- шапка є, але меню не оформлене;
-- картки стоять одна під одною, хоча учень хотів у ряд;
-- `Flexbox` увімкнено не для того блоку;
-- занадто багато тексту в картках;
-- кольори вибрані так, що текст погано видно;
-- елементи прилипають один до одного через відсутність відступів.
+- забули `alt` у картинки;
+- шлях до картинки написаний неправильно;
+- файл картинки лежить не в тій папці;
+- відео не відтворюється, бо неправильний шлях до файлу;
+- текст погано видно на фоні;
+- `::before` або `::after` не працює, бо забули `content`;
+- `:nth-child()` використано не для того елемента.
 
 ---
 
 ## Запитання для повторення
 
-1. З яких головних частин складається проста вебсторінка?
-2. Для чого потрібен `header`?
-3. Де знаходиться головний зміст сторінки?
-4. Для чого зручно використовувати `Flexbox` або `Grid`?
-5. Що таке картка на сайті?
-6. Чому важливо не просто написати код, а зібрати сторінку логічно?
+1. Для чого потрібен тег `<img>`?
+2. Що означає `alt`?
+3. Для чого потрібен тег `<video>`?
+4. Які властивості змінюють колір тексту і фону?
+5. Що робить `:first-child`?
+6. Для чого використовується `:nth-child()`?
+7. Що робить `::before`?
+8. Що робить `::after`?
 
 ---
 
 ## Домашнє завдання
 
-Створи власний мінісайт на одну з тем:
+Створи яскраву сторінку на одну з тем:
 - моя улюблена гра;
-- моє хобі;
-- мій домашній улюбленець;
-- моя команда героїв;
-- моя сторінка про себе.
+- моя тварина;
+- мій герой;
+- моя колекція;
+- мій світ фантазії.
 
 ### На сторінці повинні бути:
-- `header`
-- меню
-- `main`
-- хоча б 2 секції
-- 3 картки
-- `footer`
+- заголовок;
+- 2–3 картинки;
+- кольорові блоки;
+- хоча б один ефект через `:first-child`, `:nth-child()`, `::before` або `::after`.
+
+### Готовий приклад результату
+
+#### `index.html`
+```html
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Моя тварина</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Мій домашній улюбленець</h1>
+    <img src="images/cat.jpg" alt="Мій кіт" width="250">
+
+    <div class="card">
+        <h3 class="card-title">Мій кіт</h3>
+        <p>Він любить спати, гратися і бігати по кімнаті.</p>
+    </div>
+</body>
+</html>
+```
+
+#### `style.css`
+```css
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff7ed;
+    padding: 20px;
+}
+
+img {
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 14px;
+    width: 260px;
+}
+
+.card-title::before {
+    content: "🐾 ";
+}
+```
 
 ### Додаткове завдання
-Спробуй зробити сторінку ще цікавішою:
-- додай більше карток;
-- зміни кольори;
-- зроби свій стиль меню;
-- придумай власну тему сайту.
+Спробуй:
+- додати ще одну картинку;
+- змінити кольори;
+- зробити різний стиль для першого і другого блоку;
+- додати невеликий підпис через `::after`.
