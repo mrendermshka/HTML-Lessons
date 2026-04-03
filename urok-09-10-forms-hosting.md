@@ -53,104 +53,25 @@
 </form>
 ```
 
-Усередині форми ми можемо розміщувати:
-- підписи;
-- поля для введення;
-- кнопки;
-- великі текстові поля.
+---
+
+### 3. Основні елементи форми
+
+#### `<label>`
+Підпис до поля.
+
+#### `<input>`
+Поле для введення.
+
+#### `<textarea>`
+Велике поле для кількох речень.
+
+#### `<button>`
+Кнопка для завершення або відправлення.
 
 ---
 
-### 3. Тег `<label>`
-
-`<label>` — це підпис до поля.
-
-Він пояснює, що саме потрібно ввести.
-
-#### Приклад
-```html
-<label>Твоє ім'я</label>
-<input type="text">
-```
-
-Без `label` людині важче зрозуміти, для чого потрібне поле.
-
----
-
-### 4. Тег `<input>`
-
-`<input>` — це поле для введення.
-
-У нього бувають різні типи.
-
-#### `type="text"`
-Для звичайного тексту.
-
-```html
-<input type="text">
-```
-
-#### `type="number"`
-Для числа.
-
-```html
-<input type="number">
-```
-
-#### `type="email"`
-Для електронної пошти.
-
-```html
-<input type="email">
-```
-
-#### `type="checkbox"`
-Для позначки.
-
-```html
-<input type="checkbox">
-```
-
----
-
-### 5. Атрибут `placeholder`
-
-`placeholder` показує підказку всередині поля.
-
-#### Приклад
-```html
-<input type="text" placeholder="Введи своє ім'я">
-```
-
-Це зручно, бо учень одразу бачить, що треба написати.
-
----
-
-### 6. Тег `<textarea>`
-
-`<textarea>` — це велике поле для тексту.
-
-Воно зручне, якщо потрібно написати кілька речень.
-
-#### Приклад
-```html
-<textarea placeholder="Напиши щось про себе"></textarea>
-```
-
----
-
-### 7. Тег `<button>`
-
-Кнопка потрібна, щоб натиснути й відправити форму або просто завершити введення.
-
-#### Приклад
-```html
-<button>Відправити</button>
-```
-
----
-
-### 8. Приклад простої форми
+### 4. Приклад простої форми
 
 #### `index.html`
 ```html
@@ -170,10 +91,6 @@
     <button>Готово</button>
 </form>
 ```
-
----
-
-### 9. Стилізація форми через CSS
 
 #### `style.css`
 ```css
@@ -205,8 +122,6 @@
     cursor: pointer;
 }
 ```
-
-Тепер форма буде не просто працювати, а ще й виглядати красиво.
 
 ---
 
@@ -240,6 +155,8 @@
 - короткий опис про себе;
 - кнопка.
 
+### Готовий приклад результату
+
 #### `index.html`
 ```html
 <form class="my-form">
@@ -259,6 +176,36 @@
 </form>
 ```
 
+#### `style.css`
+```css
+.my-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 400px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.my-form input,
+.my-form textarea {
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.my-form button {
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+}
+```
+
 ---
 
 ## Практика 2. Робимо форму красивою
@@ -271,6 +218,27 @@
 - мала красиві поля;
 - мала красиву кнопку.
 
+### Готовий приклад результату
+
+#### `index.html`
+```html
+<section class="form-box">
+    <h2>Анкета учня</h2>
+    <form class="my-form">
+        <label>Ім'я</label>
+        <input type="text" placeholder="Напиши своє ім'я">
+
+        <label>Улюблена гра</label>
+        <input type="text" placeholder="Напиши назву гри">
+
+        <label>Про себе</label>
+        <textarea placeholder="Напиши кілька речень"></textarea>
+
+        <button>Готово</button>
+    </form>
+</section>
+```
+
 #### `style.css`
 ```css
 body {
@@ -279,11 +247,14 @@ body {
     padding: 20px;
 }
 
+.form-box {
+    width: 440px;
+}
+
 .my-form {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    width: 400px;
     background-color: white;
     padding: 20px;
     border-radius: 14px;
@@ -321,12 +292,80 @@ body {
 - клуб геймерів;
 - шкільний гурток.
 
-### На сторінці має бути
-- заголовок;
-- короткий опис;
-- форма;
-- кнопка;
-- акуратний дизайн.
+### Готовий приклад результату
+
+#### `index.html`
+```html
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Клуб Minecraft</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section class="club-page">
+        <h1>Запис у клуб Minecraft</h1>
+        <p>Заповни форму, якщо хочеш приєднатися до нашого клубу.</p>
+
+        <form class="my-form">
+            <label>Ім'я</label>
+            <input type="text" placeholder="Напиши своє ім'я">
+
+            <label>Вік</label>
+            <input type="number" placeholder="Напиши свій вік">
+
+            <label>Улюблений режим</label>
+            <input type="text" placeholder="Survival, Creative...">
+
+            <label>Чому хочеш у клуб?</label>
+            <textarea placeholder="Напиши кілька речень"></textarea>
+
+            <button>Записатися</button>
+        </form>
+    </section>
+</body>
+</html>
+```
+
+#### `style.css`
+```css
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #ecfccb, #f8fafc);
+    padding: 20px;
+}
+
+.club-page {
+    max-width: 500px;
+}
+
+.my-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.my-form input,
+.my-form textarea {
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.my-form button {
+    background-color: #16a34a;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+}
+```
 
 ---
 
@@ -416,6 +455,37 @@ _Додати скріншот блоку, де з'являється URL сай
 ### Завдання
 Опублікуй свій навчальний сайт через GitHub Pages.
 
+### Які файли мають бути в репозиторії
+
+#### `index.html`
+```html
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Мій сайт</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Привіт! Це мій сайт</h1>
+    <p>Я опублікував його через GitHub Pages.</p>
+</body>
+</html>
+```
+
+#### `style.css`
+```css
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fb;
+    padding: 20px;
+}
+
+h1 {
+    color: #4f46e5;
+}
+```
+
 ### Що потрібно перевірити
 - чи завантажився `index.html`;
 - чи завантажився `style.css`;
@@ -462,6 +532,68 @@ _Додати скріншот блоку, де з'являється URL сай
 - анкета про себе;
 - форма замовлення піци;
 - форма для фан-клубу гри.
+
+### Готовий приклад результату
+
+#### `index.html`
+```html
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма реєстрації</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form class="my-form">
+        <label>Ім'я</label>
+        <input type="text" placeholder="Напиши ім'я">
+
+        <label>Улюблена гра</label>
+        <input type="text" placeholder="Напиши гру">
+
+        <label>Чому хочеш приєднатися?</label>
+        <textarea placeholder="Напиши кілька речень"></textarea>
+
+        <button>Відправити</button>
+    </form>
+</body>
+</html>
+```
+
+#### `style.css`
+```css
+body {
+    font-family: Arial, sans-serif;
+    background-color: #eef2ff;
+    padding: 20px;
+}
+
+.my-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 400px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 14px;
+}
+
+.my-form input,
+.my-form textarea {
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+}
+
+.my-form button {
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+}
+```
 
 ### Завдання 2
 Опублікуй свій сайт на GitHub Pages.
